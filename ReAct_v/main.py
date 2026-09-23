@@ -1,6 +1,6 @@
 import asyncio
 import os
-from miniagent.ReAct_v.status import AgentStatus
+from status import AgentStatus
 
 from openai import OpenAI
 from dotenv import load_dotenv
@@ -30,11 +30,11 @@ def choose_initial_task(checkpoint_store):
 
         for index, data in enumerate(records, start=1):
             status = data.get("status", "THINK")
-            state_name = "已完成" if status == "END" else "进行中"
+            status_name = "已完成" if status == "END" else "进行中"
 
             print(
                 f"{index}. {data.get('task_id', '未命名话题')} "
-                f"[{state_name}, step={data.get('step', 0)}]"
+                f"[{status_name}, step={data.get('step', 0)}]"
             )
 
         print("输入编号恢复该话题，或直接输入新的需求。")
@@ -57,9 +57,9 @@ def choose_initial_task(checkpoint_store):
                 task_id = data["task_id"]
 
                 print(f"[resume] 恢复话题：{task_id}")
-                state = AgentStatus.from_checkpoint(data)
+                status = AgentStatus.from_checkpoint(data)
 
-                return task_id, state
+                return task_id, status
 
             print("编号不存在，请重新输入。")
             continue
@@ -71,10 +71,10 @@ def choose_initial_task(checkpoint_store):
         }]
 
         task_id = user_input.split(" ")[0].lower().replace(" ", "_")
-        state = AgentStatus(messages)
+        status = AgentStatus(messages)
 
         print(f"[new] 新建话题：{task_id}")
-        return task_id, state
+        return task_id, status
 
 async def main():
     async with stdio_client(server_params) as (read, write):
@@ -94,9 +94,9 @@ async def main():
 
             checkpoint_store = CheckpointStore()
 
-            task_id, state = choose_initial_task(checkpoint_store)
+            task_id, status = choose_initial_task(checkpoint_store)
 
-            if state is None:
+            if status is None:
                 return
 
             # messages = []
@@ -193,13 +193,13 @@ async def main():
                 if user_input == "exit":
                     break
 
-                state.messages.append({
+                status.messages.append({
                     "role": "user",
                     "content": user_input,
                 })
 
                 # 重新进入 THINK，而不是沿用上一轮的 END
-                state = AgentStatus(state.messages)
+                status = AgentStatus(status.messages)
 
 if __name__ == "__main__":
     asyncio.run(main())
