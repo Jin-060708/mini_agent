@@ -1,0 +1,19 @@
+# ===== LLM 与配置 =====
+# DeepSeek / OpenAI 兼容客户端
+openai
+# 读取 .env 配置（DEEPSEEK_API_KEY、MYSQL_* 等）
+python-dotenv
+
+# ===== MCP (Model Context Protocol) =====
+# MCP Server + Client（ReAct_v、mcp_server_pyv 依赖）
+mcp
+
+# ===== Function Calling 工具 =====
+# 计算表达式工具安全求值
+simpleeval
+
+# ===== 数据库 (Function Calling 用户信息存取) =====
+# MySQL 驱动
+pymysql
+# 连接池
+DBUtils

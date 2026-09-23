@@ -1,0 +1,20 @@
+chat.completion
+├── id: 请求id
+├── choices: [0]  ← 回答在这里面
+│   └── finish_reason: "tool_calls"   ← 关键标志：模型这次"没答完"，而是请求调工具
+│   └── message:
+│       ├── role: "assistant"
+│       ├── content: ""              ← 内容为空！因为模型决定调用工具
+│       ├── tool_calls: [            ← 关键：模型要调的工具列表
+│       │   {
+│       │       "id": "call_00_xxx",
+│       │       "type": "function",
+│       │       "function": {
+│       │           "name": "calculator",              ← 要调哪个工具
+│       │           "arguments": "{\"expression\": \"23*45\"}"  ← 参数(JSON字符串)
+│       │       }
+│       │   }
+│       │ ]
+│       └── reasoning_content: "..."   ← deepseek 的思考过程(deepseek-flash特有)
+├── created / model / object
+└── usage: token 用量统计
