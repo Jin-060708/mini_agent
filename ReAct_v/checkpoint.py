@@ -15,7 +15,7 @@ class CheckpointStore:
             "status": status.status,
             "max_steps": status.max_steps,
             "messages": status.messages,
-            "pending": status.pending_results,
+            "pending_results": status.pending_results,
             "last_message": (
                 status.last_message.model_dump()
                 if status.last_message is not None
