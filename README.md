@@ -25,7 +25,6 @@ miniagent/
 │       └── test_checkpoint_resume.py   # 断点续跑单元测试（随机故障注入）
 ├── mcp-server/             # Node.js 版 MCP Server（JS 实现，另一套方案）
 ├── test.py                 # 临时测试脚本（当前为空）
-├── schedule.txt            # 学习计划/记录
 └── README.md
 ```
 
@@ -76,7 +75,6 @@ pip install openai python-dotenv mcp simpleeval
 | `MYSQL_USER` / `MYSQL_PASSWORD` | MySQL 账号与密码 |
 | `MYSQL_DB` | MySQL 数据库名 |
 
-> 如使用真实天气数据，还需在对应工具中配置高德 Web 服务 Key（本项目当前为演示性实现）。
 
 ## 运行
 
@@ -97,10 +95,7 @@ ReAct_v 中 MCP Server 的启动命令在 [ReAct_v/main.py](ReAct_v/main.py) 中
 
 ## 测试
 
-```bash
-# 在 ReAct_v 目录下运行断点续跑单元测试
-D:/anaconda/envs/mini_agent/python.exe -m unittest tests.test_checkpoint_resume -v
-```
+
 
 该测试注入随机故障，验证 Agent 能从最近的 checkpoint 恢复并最终完成任务、工具调用结果对账一致。
 
@@ -120,6 +115,13 @@ D:/anaconda/envs/mini_agent/python.exe -m unittest tests.test_checkpoint_resume 
 - **智能体范式**：Function Calling → MCP → ReAct
 - **可靠性**：Checkpoint 断点续跑 + 随机故障注入测试
 - **存储**：MySQL（用户信息）、JSON 文件（checkpoint）
+
+## 功能说明
+main.py中
+<img width="658" height="146" alt="image" src="https://github.com/user-attachments/assets/8458b20c-251b-4a4c-9793-b657ae21d8f8" />
+这里作为短期记忆，仅单次对话的记忆，这个项目并没有做上下文压缩多次对话会消耗大量token
+<img width="514" height="493" alt="image" src="https://github.com/user-attachments/assets/a6bd114b-da8e-46f1-9328-4611c92e1d15" />
+这里为话题恢复功能，保存和load都在checkpoint.py里面
 
 ## 模式参考
 主要老师：GPT-5.6
