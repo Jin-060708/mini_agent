@@ -64,7 +64,6 @@ def choose_initial_task(checkpoint_store):
             print("编号不存在，请重新输入。")
             continue
 
-        # 不是编号：作为新需求
         messages = [{
             "role": "user",
             "content": user_input,
