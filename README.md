@@ -117,9 +117,10 @@ ReAct_v 中 MCP Server 的启动命令在 [ReAct_v/main.py](ReAct_v/main.py) 中
 - **存储**：MySQL（用户信息）、JSON 文件（checkpoint）
 
 ## 功能说明
-main.py中
+main.py中，这里作为短期记忆，仅单次对话的记忆，这个项目并没有做上下文压缩多次对话会消耗大量token
 <img width="658" height="146" alt="image" src="https://github.com/user-attachments/assets/8458b20c-251b-4a4c-9793-b657ae21d8f8" />
-这里作为短期记忆，仅单次对话的记忆，这个项目并没有做上下文压缩多次对话会消耗大量token
+
+
 <img width="514" height="493" alt="image" src="https://github.com/user-attachments/assets/a6bd114b-da8e-46f1-9328-4611c92e1d15" />
 这里为话题恢复功能，保存和load都在checkpoint.py里面
 
